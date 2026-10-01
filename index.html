@@ -1,0 +1,210 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="index,follow">
+  <meta name="theme-color" content="#fafaf7">
+  <title>Ying Yang — Research</title>
+  <meta name="description" content="Ying Yang's research in generative models, interactive video generation, world models, and embodied intelligence.">
+  <link rel="stylesheet" href="assets/fonts.css">
+  <style>
+    :root{--paper:#fafaf7;--ink:#253b3a;--body:#354643;--muted:#5c6b67;--accent:#286666;--line:#d7dfd9;--wash:#edf1ec;--white:#fff}
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth;scroll-padding-top:35px}
+    body{margin:0;background:var(--paper);color:var(--body);font-family:Manrope,sans-serif;font-size:16px;line-height:1.7;-webkit-font-smoothing:antialiased}
+    a{color:var(--accent);text-decoration:none;text-underline-offset:5px}
+    a:hover{text-decoration:underline}
+    a:focus-visible{outline:2px solid var(--accent);outline-offset:6px}
+    ::selection{background:#d7e8dc;color:var(--ink)}
+    h1,h2,h3,p,figure{margin:0}
+    h1,h2,h3{color:var(--ink);font-weight:500}
+    img{display:block;max-width:100%}
+    .skip{position:fixed;left:20px;top:-70px;background:var(--ink);color:white;padding:8px 18px;z-index:10}
+    .skip:focus{top:20px}
+    .shell{max-width:1320px;margin:auto;display:grid;grid-template-columns:266px minmax(0,1fr);gap:72px;padding:64px 48px 38px}
+    .identity{position:sticky;top:55px;align-self:start;border-right:1px solid var(--line);padding-right:40px;min-height:calc(100vh - 110px);display:flex;flex-direction:column}
+    .avatar{width:136px;height:136px;object-fit:contain;border-radius:50%;background:#fff;margin-bottom:29px;box-shadow:0 0 0 7px var(--paper),0 0 0 8px var(--line)}
+    .name{font-family:Newsreader,Georgia,serif;font-size:43px;line-height:1.15;letter-spacing:-1.5px;white-space:nowrap}
+    .name-sub{font-size:15px;margin-top:6px;color:var(--muted);letter-spacing:.02em}
+    .name-sub span{font-family:'Microsoft YaHei',sans-serif}
+    .identity-description{font-size:14px;line-height:1.8;margin-top:25px;max-width:180px}
+    .identity-links{display:flex;gap:16px;flex-wrap:wrap;font-size:14px;font-weight:700;margin-top:20px}
+    nav{margin-top:43px;display:flex;flex-direction:column;gap:14px}
+    nav a{font-size:14px;color:var(--muted);width:fit-content;display:flex;align-items:center;gap:12px}
+    nav a:before{content:'';width:14px;height:1px;background:transparent}
+    nav a.active{color:var(--ink);font-weight:700}
+    nav a.active:before{background:var(--accent)}
+    .identity-note{font-size:12px;line-height:1.6;color:var(--muted);margin-top:auto;padding-top:72px}
+    main{min-width:0;padding-top:3px}
+    .eyebrow{font-size:12px;letter-spacing:.15em;text-transform:uppercase;font-weight:700;color:var(--accent)}
+    .intro h1{font-family:Newsreader,Georgia,serif;font-size:38px;line-height:1.2;letter-spacing:-.8px;margin:0 0 23px;max-width:710px}
+    .intro-copy{max-width:720px;font-size:17px;line-height:1.85}
+    .intro-copy + .intro-copy{margin-top:17px}
+    .intro-copy strong{color:var(--ink);font-weight:600}
+    .intro-contact{max-width:720px;font-size:15px;line-height:1.8;margin-top:20px}
+    .wechat-id{white-space:nowrap}
+    .research{margin-top:58px}
+    .section-heading{display:flex;align-items:baseline;justify-content:space-between;gap:15px;border-bottom:1px solid var(--ink);padding-bottom:15px}
+    .section-heading h2{font-family:Newsreader,Georgia,serif;font-size:33px;letter-spacing:-.7px;line-height:1.2}
+    .section-heading p{font-size:12px;color:var(--muted)}
+    .paper{display:grid;grid-template-columns:220px minmax(0,1fr);gap:29px;padding:34px 0;border-bottom:1px solid var(--line)}
+    .paper-visual{align-self:start;background:var(--white);border:1px solid var(--line);height:167px;display:flex;align-items:center;justify-content:center;padding:10px;margin-top:4px;transition:border-color .2s}
+    .paper-visual:hover{border-color:var(--accent)}
+    .paper-visual img{width:100%;height:100%;object-fit:contain}
+    .paper-meta{display:flex;flex-wrap:wrap;align-items:center;gap:8px;font-size:12px;line-height:1.5;margin-bottom:10px;font-weight:600;color:var(--accent)}
+    .paper-meta .venue{background:var(--wash);padding:3px 8px}
+    .paper-meta .year{color:var(--muted)}
+    .paper h3{font-family:Newsreader,Georgia,serif;font-size:25px;line-height:1.15;letter-spacing:-.35px;text-wrap:pretty}
+    .paper h3 a{color:inherit}
+    .paper h3 .project-name{font-weight:600}
+    .authors{font-size:13px;color:var(--muted);margin-top:11px}
+    .authors strong{font-weight:700;color:var(--body)}
+    .paper-description{font-size:14px;line-height:1.75;margin-top:9px;text-wrap:pretty}
+    .paper-links{display:flex;gap:18px;flex-wrap:wrap;font-size:13px;font-weight:700;margin-top:13px}
+    .paper-links a{border-bottom:1px solid #a2bbb6;line-height:1.5}
+    .paper-links a:hover{text-decoration:none;border-color:var(--accent)}
+    .honors{margin-top:56px}
+    .record{margin:20px 0 0;font-size:16px;line-height:1.8;font-weight:500;color:var(--ink);display:flex;flex-wrap:wrap;gap:0 16px}
+    .record strong{font-weight:700;color:var(--accent)}
+    .record-school{font-weight:400;color:var(--muted)}
+    .award-list{padding:0;margin:22px 0 0;list-style:none}
+    .award-list li{display:grid;grid-template-columns:48px 1fr;gap:20px;padding:10px 0;font-size:14px;line-height:1.7}
+    .award-year{font-size:12px;padding-top:2px;color:var(--muted)}
+    .award-name{font-weight:600;color:var(--body)}
+    .award-percent{font-size:12px;font-weight:600;color:var(--accent);white-space:nowrap;margin-left:9px}
+    .award-detail{font-weight:400;color:var(--muted)}
+    .contact{margin-top:57px;padding:30px 0 34px;border-top:1px solid var(--ink)}
+    .contact h2{font-family:Newsreader,Georgia,serif;font-size:32px;line-height:1.15;letter-spacing:-.5px}
+    .contact p{font-size:14px;margin-top:12px}
+    .contact a{display:inline-block;margin-top:13px;font-size:17px;border-bottom:1px solid #a2bbb6;overflow-wrap:anywhere}
+    footer{font-size:12px;color:var(--muted);display:flex;justify-content:space-between;gap:20px;border-top:1px solid var(--line);padding-top:19px}
+    footer a{color:var(--muted)}
+    @media(min-width:1500px){.shell{padding-top:80px}.identity{top:70px}.intro h1{font-size:40px}.research{margin-top:64px}}
+    @media(max-width:1120px){.shell{grid-template-columns:220px minmax(0,1fr);gap:42px;padding:48px 32px}.identity{padding-right:28px}.name{font-size:39px}.intro h1{font-size:36px}.paper{grid-template-columns:180px minmax(0,1fr);gap:22px}.paper-visual{height:146px}.paper h3{font-size:24px}}
+    @media(max-width:900px){.shell{grid-template-columns:190px minmax(0,1fr);gap:30px;padding:40px 26px}.identity{padding-right:20px}.avatar{width:114px;height:114px}.name{font-size:34px}.paper{grid-template-columns:1fr}.paper-visual{width:100%;height:200px;padding:16px}.intro h1{font-size:34px}.intro-copy{font-size:16px}.section-heading{align-items:start;flex-direction:column;gap:5px}}
+    @media(max-width:650px){html{scroll-padding-top:24px}.shell{display:block;padding:32px 24px 26px}.identity{position:static;min-height:0;padding:0 0 22px;border-right:0;border-bottom:1px solid var(--line);display:grid;grid-template-columns:88px minmax(0,1fr);column-gap:24px}.avatar{width:88px;height:88px;margin:0;grid-row:1/4;box-shadow:0 0 0 4px var(--paper),0 0 0 5px var(--line)}.name{font-size:37px;line-height:1.15;margin-top:1px}.name-sub{font-size:13px;margin-top:3px}.identity-links{margin-top:8px;font-size:13px;gap:18px}.identity-description,.identity-note{display:none}nav{grid-column:1/-1;flex-direction:row;gap:24px;margin-top:26px;flex-wrap:wrap}nav a{font-size:13px;gap:0}nav a:before{display:none}nav a.active{text-decoration:underline;text-underline-offset:8px}main{padding-top:37px}.eyebrow{font-size:12px}.intro h1{font-size:32px;letter-spacing:-.7px;margin-top:0;margin-bottom:18px}.intro-copy{font-size:15px;line-height:1.85}.research{margin-top:40px}.section-heading h2{font-size:30px}.section-heading p{font-size:12px}.paper{padding:27px 0 30px;gap:20px}.paper-visual{height:195px;margin:0}.paper h3{font-size:26px;line-height:1.18}.paper-description{font-size:14px}.paper-meta{margin-bottom:9px}.authors,.paper-links{font-size:13px}.paper-links{gap:23px;margin-top:14px}.honors{margin-top:40px}.award-list{margin-top:17px}.award-list li{grid-template-columns:35px 1fr;gap:12px;font-size:14px;padding:9px 0}.contact{margin-top:39px;padding-top:24px}.contact a{font-size:16px}footer{font-size:12px}}
+    @media(max-width:360px){.shell{padding-right:18px;padding-left:18px}.identity{column-gap:19px;grid-template-columns:77px minmax(0,1fr)}.avatar{width:77px;height:77px}.name{font-size:33px}nav{gap:20px}.intro h1{font-size:30px}.paper-visual{height:175px}}
+    @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{transition:none!important}}
+  </style>
+  <link rel="canonical" href="https://xbyym.github.io/">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Ying Yang — Research">
+  <meta property="og:description" content="Research in generative models, interactive video generation, world models, and embodied intelligence.">
+  <meta property="og:url" content="https://xbyym.github.io/">
+  <meta property="og:image" content="https://xbyym.github.io/assets/github-avatar.jpg">
+</head>
+<body>
+  <a class="skip" href="#main">Skip to content</a>
+  <div class="shell">
+    <aside class="identity" aria-label="Profile and navigation">
+      <img class="avatar" src="assets/github-avatar.jpg" alt="Ying Yang’s GitHub avatar" width="136" height="136">
+      <p class="name">Ying Yang</p>
+      <p class="name-sub"><span lang="zh">杨映</span></p>
+      <p class="identity-description">Generative models<br>Interactive video generation<br>World models<br>Embodied intelligence</p>
+      <div class="identity-links"><a href="mailto:yycfq1517@gmail.com">Email</a><a href="https://github.com/xbyym" target="_blank" rel="noopener noreferrer">GitHub</a><a href="#contact">WeChat</a></div>
+      <nav aria-label="Main navigation">
+        <a class="active" href="#about" aria-current="location">About</a>
+        <a href="#research">Research</a>
+        <a href="#honors">Honors</a>
+        <a href="#contact">Contact</a>
+      </nav>
+      <p class="identity-note">Personal research homepage<br>Ying Yang · 2026</p>
+    </aside>
+    <main id="main">
+      <section class="intro" id="about" aria-labelledby="intro-title">
+        <h1 id="intro-title">About Me</h1>
+        <p class="intro-copy">Hi! I'm <strong>Ying Yang (杨映)</strong>. My research interests include <strong>generative models, interactive video generation, world models, and embodied intelligence.</strong></p>
+        <p class="intro-copy">I aim to build natively multimodal, end-to-end world models and create new interactive virtual media that convey human love and values.</p>
+        <p class="intro-contact">I'm always open to research discussions and collaboration. Reach me by <a href="mailto:yycfq1517@gmail.com">email</a> or WeChat: <span class="wechat-id">yyqwe1517</span>.</p>
+      </section>
+
+      <section class="research" id="research" aria-labelledby="research-title">
+        <header class="section-heading"><h2 id="research-title">Research</h2><p>Papers &amp; ongoing projects</p></header>
+        <article class="paper">
+          <a class="paper-visual" href="https://spatial-memory-intelligence.github.io/" target="_blank" rel="noopener noreferrer" aria-label="View Spatial Memory Intelligence project"><img src="assets/smi-framework.png" alt="Spatial Memory Intelligence Figure 2: method framework with spatial clustering, sparsification, action-aware retrieval, and reliability-aware filtering" width="2399" height="1305"></a>
+          <div class="paper-content">
+            <div class="paper-meta"><span class="venue">Research project</span><span class="year">2026</span></div>
+            <h3><a href="https://spatial-memory-intelligence.github.io/" target="_blank" rel="noopener noreferrer"><span class="project-name">Spatial Memory Intelligence:</span> Endowing World Models with Understanding-Driven Long-Term Memory</a></h3>
+            <p class="authors"><strong>Ying Yang</strong> et al.</p>
+            <p class="paper-description">An understanding-driven memory manager that organizes, sparsifies, retrieves, and maintains spatial memory for video world models.</p>
+            <div class="paper-links"><a href="https://spatial-memory-intelligence.github.io/" target="_blank" rel="noopener noreferrer">Project</a><a href="https://github.com/xbyym/SMI" target="_blank" rel="noopener noreferrer">Code</a></div>
+          </div>
+        </article>
+        <article class="paper">
+          <a class="paper-visual" href="https://sd-world.github.io/" target="_blank" rel="noopener noreferrer" aria-label="View StableWorld project"><img src="assets/stableworld-framework.png" alt="StableWorld dynamic frame eviction framework" width="220" height="167" loading="lazy"></a>
+          <div class="paper-content">
+            <div class="paper-meta"><span class="venue">Preprint</span><span class="year">2026</span></div>
+            <h3><a href="https://arxiv.org/abs/2601.15281" target="_blank" rel="noopener noreferrer"><span class="project-name">StableWorld:</span> Towards Stable and Consistent Long Interactive Video Generation</a></h3>
+            <p class="authors"><strong>Ying Yang</strong> et al.</p>
+            <p class="paper-description">Dynamic frame eviction filters degraded observations to improve stability and temporal consistency in long interactive video generation.</p>
+            <div class="paper-links"><a href="https://arxiv.org/abs/2601.15281" target="_blank" rel="noopener noreferrer">Paper</a><a href="https://sd-world.github.io/" target="_blank" rel="noopener noreferrer">Project</a><a href="https://github.com/xbyym/StableWorld" target="_blank" rel="noopener noreferrer">Code</a></div>
+          </div>
+        </article>
+        <article class="paper">
+          <a class="paper-visual" href="https://diverse-ar.github.io/" target="_blank" rel="noopener noreferrer" aria-label="View DiverseAR project"><img src="assets/diversear-framework.png" alt="DiverseAR adaptive logits scaling and energy-based path search framework" width="220" height="167" loading="lazy"></a>
+          <div class="paper-content">
+            <div class="paper-meta"><span class="venue">CVPR 2026 Findings</span></div>
+            <h3><a href="https://arxiv.org/abs/2512.02931" target="_blank" rel="noopener noreferrer"><span class="project-name">DiverseAR:</span> Boosting Diversity in Bitwise Autoregressive Image Generation</a></h3>
+            <p class="authors"><strong>Ying Yang</strong> et al.</p>
+            <p class="paper-description">Adaptive logits scaling and energy-based path search improve sampling diversity in bitwise autoregressive image generation.</p>
+            <div class="paper-links"><a href="https://arxiv.org/abs/2512.02931" target="_blank" rel="noopener noreferrer">Paper</a><a href="https://diverse-ar.github.io/" target="_blank" rel="noopener noreferrer">Project</a><a href="https://github.com/xbyym/DiverseAR" target="_blank" rel="noopener noreferrer">Code</a></div>
+          </div>
+        </article>
+        <article class="paper">
+          <a class="paper-visual" href="https://github.com/xbyym/DLSR" target="_blank" rel="noopener noreferrer" aria-label="View DLSR code and research framework"><img src="assets/dlsr-framework.png" alt="Diffusion-based Layer-wise Semantic Reconstruction framework" width="220" height="167" loading="lazy"></a>
+          <div class="paper-content">
+            <div class="paper-meta"><span class="venue">NeurIPS 2024</span></div>
+            <h3><a href="https://proceedings.neurips.cc/paper_files/paper/2024/hash/2f32be3e112e151707cb12528bdfa7d5-Abstract-Conference.html" target="_blank" rel="noopener noreferrer">Diffusion-based Layer-wise Semantic Reconstruction for Unsupervised Out-of-Distribution Detection</a></h3>
+            <p class="authors"><strong>Ying Yang</strong> et al.</p>
+            <p class="paper-description">Diffusion reconstructs multi-layer semantic features to distinguish in-distribution and out-of-distribution samples without labeled training data.</p>
+            <div class="paper-links"><a href="https://proceedings.neurips.cc/paper_files/paper/2024/hash/2f32be3e112e151707cb12528bdfa7d5-Abstract-Conference.html" target="_blank" rel="noopener noreferrer">Paper</a><a href="https://github.com/xbyym/DLSR" target="_blank" rel="noopener noreferrer">Code</a></div>
+          </div>
+        </article>
+      </section>
+
+      <section class="honors" id="honors" aria-labelledby="honors-title">
+        <header class="section-heading"><h2 id="honors-title">Honors &amp; Awards</h2></header>
+        <p class="record"><span>GPA: <strong>92.05/100 (3.9/4.0)</strong></span><span>Rank: <strong>3/144</strong></span><span class="record-school">Xidian University</span></p>
+        <ul class="award-list">
+          <li><span class="award-year">2023</span><span class="award-name">Modern Scientist Scholarship for Social Contribution <span class="award-percent">Top 1%</span></span></li>
+          <li><span class="award-year">2023</span><span class="award-name">First-Class Scholarship <span class="award-percent">Top 5%</span></span></li>
+          <li><span class="award-year">2022</span><span class="award-name">Outstanding Winner Nomination (F Award) <span class="award-percent">Top 1%</span><br><span class="award-detail">MCM / ICM</span></span></li>
+          <li><span class="award-year">2022</span><span class="award-name">First Prize <span class="award-percent">Top 5%</span><br><span class="award-detail">National College Students’ Mathematics Competition</span></span></li>
+          <li><span class="award-year" aria-hidden="true"></span><span class="award-name">First Prize <span class="award-percent">Top 5%</span><br><span class="award-detail">National College Students’ Mathematical Modeling Competition</span></span></li>
+        </ul>
+      </section>
+      <section class="contact" id="contact" aria-labelledby="contact-title">
+        <h2 id="contact-title">Get in touch.</h2>
+        <p>For research conversations and questions about my work:</p>
+        <a href="mailto:yycfq1517@gmail.com">yycfq1517@gmail.com</a>
+        <p>WeChat: <span class="wechat-id">yyqwe1517</span></p>
+      </section>
+      <footer><span>© 2026 Ying Yang</span><a href="#about">Back to top ↑</a></footer>
+    </main>
+  </div>
+  <script>
+    const links = [...document.querySelectorAll('nav a')];
+    const sections = [...document.querySelectorAll('main > section')];
+    let scheduled = false;
+    function updateNavigation() {
+      scheduled = false;
+      const reached = sections.filter(section => section.getBoundingClientRect().top <= innerHeight * .28);
+      const id = (reached[reached.length - 1] || sections[0]).id;
+      links.forEach(link => {
+        const selected = link.hash === '#' + id;
+        link.classList.toggle('active', selected);
+        if (selected) link.setAttribute('aria-current', 'location');
+        else link.removeAttribute('aria-current');
+      });
+    }
+    function scheduleNavigation() {
+      if (!scheduled) { scheduled = true; requestAnimationFrame(updateNavigation); }
+    }
+    addEventListener('scroll', scheduleNavigation, {passive:true});
+    addEventListener('resize', scheduleNavigation);
+    addEventListener('load', updateNavigation);
+    updateNavigation();
+  </script>
+</body>
+</html>
